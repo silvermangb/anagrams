@@ -4,22 +4,23 @@ import string
 
 class HashHist(object):
     SYMBOL_COUNT = 100
+    ORD_A = ord('a')
 
     def __init__(self, p_word):
-        int_hist = array.array('b', [0 for i in xrange(HashHist.SYMBOL_COUNT)])
+        int_hist = array.array('b', HashHist.SYMBOL_COUNT * [0])
         self.word = string.lower(p_word)
         for c in p_word:
-            i = ord(c) - ord('a')
+            i = ord(c) - HashHist.ORD_A
             int_hist[i] += 1
-        chr_hist = [' ' for i in xrange(HashHist.SYMBOL_COUNT)]
+        chr_hist = HashHist.SYMBOL_COUNT * [None]
         for i in xrange(HashHist.SYMBOL_COUNT):
-            j = chr(ord('a') + int_hist[i])
+            j = chr(HashHist.ORD_A + int_hist[i])
             chr_hist[i] = j
-        self.encoding = ''.join(chr_hist)
+        self.encoding = tuple(chr_hist)
         self.hash = hash(self.encoding)
 
     def __repr__(self):
-        s = '(%s\t,%s,% 010x)' % (self.word, self.encoding, self.hash)
+        s = '(%s\t,%s,% 010x)' % (self.word, str(self.encoding), self.hash)
         return s
 
 
@@ -30,6 +31,7 @@ counts = {}
 for i in words:
     i = i.strip()
     hh = HashHist(i)
+    print '%016x' % hh.hash
     if hh.hash in anagrams:
         anagrams[hh.hash].append(hh.word)
     else:
@@ -46,7 +48,9 @@ for h in anagrams:
 c = counts.keys()
 c = sorted(c[:], reverse=True)
 for i in c:
+    if i == 1:
+        continue
     hs = counts[i]
     for j in hs:
         a = anagrams[j]
-        print len(a), a
+        print len(a), len(a[0]), sorted(a)
