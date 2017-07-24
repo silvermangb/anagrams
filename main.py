@@ -31,7 +31,6 @@ counts = {}
 for i in words:
     i = i.strip()
     hh = HashHist(i)
-    print '%016x' % hh.hash
     if hh.hash in anagrams:
         anagrams[hh.hash].append(hh.word)
     else:
