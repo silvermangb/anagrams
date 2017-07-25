@@ -7,6 +7,7 @@ class HashHist(object):
     ORD_A = ord('a')
     INT_ARRAY = array.array('b',SYMBOL_COUNT*[0])
     CHR_ARRAY = array.array('c',SYMBOL_COUNT*[' '])
+    SYMBOL_COUNT_XRANGE = xrange(SYMBOL_COUNT)
 
     def __init__(self, p_word,p_arrays=None):
         int_hist = copy.copy(HashHist.INT_ARRAY)
@@ -15,7 +16,7 @@ class HashHist(object):
         for c in p_word:
             i = ord(c) - HashHist.ORD_A
             int_hist[i] += 1
-        for i in xrange(HashHist.SYMBOL_COUNT):
+        for i in HashHist.SYMBOL_COUNT_XRANGE:
             j = chr(HashHist.ORD_A + int_hist[i])
             chr_hist[i] = j
         self.encoding = tuple(chr_hist)
