@@ -7,7 +7,7 @@ class HashHist(object):
 
     def __init__(self, p_word):
         self.word = p_word
-        self.hash= hash(''.join(sorted(self.word)))
+        self.hash= hash(tuple(sorted(self.word)))
 
 
     def __repr__(self):
