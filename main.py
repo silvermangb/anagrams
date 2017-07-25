@@ -3,8 +3,7 @@ import string
 
 
 class HashHist(object):
-    SYMBOL_COUNT = 100
-    ORD_A = ord('a')
+
 
     def __init__(self, p_word):
         self.word = p_word
