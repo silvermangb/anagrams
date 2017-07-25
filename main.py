@@ -7,20 +7,12 @@ class HashHist(object):
     ORD_A = ord('a')
 
     def __init__(self, p_word):
-        int_hist = array.array('b', HashHist.SYMBOL_COUNT * [0])
-        self.word = string.lower(p_word)
-        for c in p_word:
-            i = ord(c) - HashHist.ORD_A
-            int_hist[i] += 1
-        chr_hist = HashHist.SYMBOL_COUNT * [None]
-        for i in xrange(HashHist.SYMBOL_COUNT):
-            j = chr(HashHist.ORD_A + int_hist[i])
-            chr_hist[i] = j
-        self.encoding = tuple(chr_hist)
-        self.hash = hash(self.encoding)
+        self.word = p_word
+        self.hash= hash(''.join(sorted(self.word)))
+
 
     def __repr__(self):
-        s = '(%s\t,%s,% 010x)' % (self.word, str(self.encoding), self.hash)
+        s = '(%s\t, % 010x)' % (self.word, self.hash)
         return s
 
 
